@@ -2,24 +2,24 @@ const http = require("http");
 const WebSocket = require("ws");
 
 const PORT = 4000;
+const clients = new Set();
+
 const server = http.createServer();
 const wss = new WebSocket.Server({ server });
-
-let clients = new Set();
 
 wss.on("connection", (ws) => {
   clients.add(ws);
 
   ws.on("message", (data) => {
     let msg;
+
     try {
       msg = JSON.parse(data.toString());
-    } catch (e) {
-      console.log("Invalid JSON");
+    } catch (err) {
+      console.log("Invalid JSON received");
       return;
     }
 
-    // sab clients ko broadcast
     for (let client of clients) {
       if (client.readyState === WebSocket.OPEN) {
         client.send(JSON.stringify(msg));
@@ -32,6 +32,6 @@ wss.on("connection", (ws) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`WebSocket server running on ws://localhost:${PORT}`);
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`WebSocket server running on port ${PORT}`);
 });

@@ -10,7 +10,7 @@ function App() {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    // scroll to bottom jab bhi messages change ho
+    
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
@@ -18,6 +18,8 @@ function App() {
 
   const connectWebSocket = () => {
     const ws = new WebSocket("ws://localhost:4000");
+    
+
 
     ws.onopen = () => {
       console.log("Connected to WebSocket");
@@ -80,7 +82,7 @@ function App() {
   return (
     <div className="app">
       <div className="card">
-        <h1>WebSocket Chat (React)</h1>
+        <h1>BaatCheet</h1>
 
         {!joined && (
           <div className="join-section">
