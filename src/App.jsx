@@ -15,9 +15,11 @@ function App() {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
+  const WS_URL = "wss://chataap-production.up.railway.app"
 
   const connectWebSocket = () => {
-    const ws = new WebSocket("ws://localhost:4000");
+    const ws = new WebSocket("WS_URL");
+
     
 
 
