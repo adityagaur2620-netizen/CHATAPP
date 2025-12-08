@@ -18,7 +18,7 @@ function App() {
   const WS_URL = "wss://chataap-production.up.railway.app"
 
   const connectWebSocket = () => {
-    const ws = new WebSocket("WS_URL");
+    const ws = new WebSocket(WS_URL);
 
     
 
