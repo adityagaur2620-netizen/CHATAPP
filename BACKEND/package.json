@@ -1,0 +1,10 @@
+{
+  "name": "chataap-backend",
+  "main": "server.cjs",
+  "scripts": {
+    "start": "node server.cjs"
+  },
+  "dependencies": {
+    "ws": "^8.0.0"
+  }
+}
