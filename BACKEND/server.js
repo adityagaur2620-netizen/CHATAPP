@@ -4,22 +4,32 @@ import { WebSocketServer } from "ws";
 
 const app = express();
 
-// simple health check
+
 app.get("/", (req, res) => {
   res.send("Backend running");
 });
 
 const server = http.createServer(app);
 
-// ⚠️ attach WebSocket to SAME server
+
 const wss = new WebSocketServer({ server });
 
 wss.on("connection", (ws) => {
   console.log("✅ WebSocket connected");
 
-  ws.on("message", (msg) => {
-    console.log("Received:", msg.toString());
-    ws.send(msg.toString()); // echo
+  ws.on("message", (data) => {
+    try {
+      const msg = JSON.parse(data.toString());
+
+      // Broadcast to all clients
+      wss.clients.forEach((client) => {
+        if (client.readyState === ws.OPEN) {
+          client.send(JSON.stringify(msg));
+        }
+      });
+    } catch (err) {
+      console.error("Invalid JSON message");
+    }
   });
 
   ws.on("close", () => {
@@ -27,7 +37,6 @@ wss.on("connection", (ws) => {
   });
 });
 
-// Railway requires process.env.PORT
 const PORT = process.env.PORT || 4000;
 server.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);

@@ -1,5 +1,5 @@
 {
-  "name": "react-chat",
+  "name": "chataap-backend",
   "type": "module",
   "scripts": {
     "start": "node server.js"
