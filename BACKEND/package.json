@@ -1,10 +1,11 @@
 {
-  "name": "chataap-backend",
-  "main": "server.cjs",
+  "name": "react-chat",
+  "type": "module",
   "scripts": {
-    "start": "node server.cjs"
+    "start": "node server.js"
   },
   "dependencies": {
-    "ws": "^8.0.0"
+    "express": "^4.19.2",
+    "ws": "^8.18.0"
   }
 }
